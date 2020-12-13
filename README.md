@@ -54,9 +54,10 @@ desejada e `page` para especificar à "página" contendo os produtos.
 
 #### Teste da API utilizando Insomnia:
 
-Logo abaixo segue imagens de alguns testes utilizando o REST Client Insomnia, incluindo testes que provocam
+Nesse repositório dentro da pasta imgs segue alguns imagens de testes utilizando o REST Client Insomnia, incluindo testes que provocam
 respostas com HTTP Status como `NOT FOUND (404)` e `BAD REQUEST(400)`.
 
+<!---
 - Buscando produtos
 ![Buscando todos os produtos](https://github.com/thyagofr/coodesh/blob/main/imgs/GETALL.png?raw=true)
 - Buscando produtos (Paginação com size específico)
@@ -75,7 +76,7 @@ respostas com HTTP Status como `NOT FOUND (404)` e `BAD REQUEST(400)`.
 ![Buscando todos os produtos](https://github.com/thyagofr/coodesh/blob/main/imgs/PUTPRODUCT-OK.png?raw=true)
 - Editando produto por codigo (BAD REQUEST)
 ![Buscando todos os produtos](https://github.com/thyagofr/coodesh/blob/main/imgs/PUTPRODUCT-BADREQUEST.png?raw=true)
- 
+---> 
  
  #### Testes automatizados End-To-End
  
