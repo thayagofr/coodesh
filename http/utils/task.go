@@ -24,7 +24,7 @@ func InitializeCron(cli *mongo.Client) {
 	client = cli
 	c := cron.New()
 	_, err := c.AddFunc(
-		"35 18 * * *",
+		"11 19 * * *",
 		LoadData,
 	)
 	if err != nil {
@@ -40,7 +40,8 @@ func GetFileName() string {
 	response, err := http.Get(URL)
 	if err != nil {
 		log.Println("Nao foi possível obter a lista de arquivos.")
-		log.Fatal(err.Error())
+		NotifyTelegram("ERRO AO SINCRONIZAR " + err.Error())
+		return ""
 	}
 	defer response.Body.Close()
 	scanner := bufio.NewScanner(response.Body)
@@ -49,14 +50,13 @@ func GetFileName() string {
 }
 
 func LoadData() {
-	log.Println("Migrando...")
 	name := GetFileName()
 	URL := fmt.Sprintf("https://static.openfoodfacts.org/data/delta/%s", name)
 	response, _ := http.Get(URL)
 	defer response.Body.Close()
 	gzipReader, err := gzip.NewReader(response.Body)
 	if err != nil {
-		log.Fatal(err)
+		NotifyTelegram("ERRO AO SINCRONIZAR " + err.Error())
 	}
 	data, err := ioutil.ReadAll(gzipReader)
 	convert := strings.ReplaceAll(string(data), "}\n{", "},{")
@@ -65,7 +65,7 @@ func LoadData() {
 	var products []model.Product
 	err = json.NewDecoder(strings.NewReader(newString)).Decode(&products)
 	if err != nil {
-		log.Println(err)
+		NotifyTelegram("ERRO AO SINCRONIZAR " + err.Error())
 	}
 	total := 0
 	for _, p := range products {
