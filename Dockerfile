@@ -1,8 +1,8 @@
 FROM golang:alpine
 RUN mkdir /app
-ADD . /app
+ADD ./http /app
 WORKDIR /app
 RUN go mod download
-RUN go build http/main.go
+RUN go build main.go
 EXPOSE 8080
-CMD ["/app/main"]
+CMD ["./main"]

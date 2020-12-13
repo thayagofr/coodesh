@@ -3,12 +3,13 @@ package service
 import (
 	"context"
 	"errors"
-	"github.com/thyagofr/coodesh/desafio/http/utils"
+	"github.com/thyagofr/coodesh/desafio/utils"
+	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"time"
 
-	"github.com/thyagofr/coodesh/desafio/http/database"
-	"github.com/thyagofr/coodesh/desafio/http/model"
+	"github.com/thyagofr/coodesh/desafio/database"
+	"github.com/thyagofr/coodesh/desafio/model"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
@@ -88,5 +89,32 @@ func RemoveProduct(code string) error {
 		return errors.New("Product not found")
 	}
 	return nil
+}
+
+func LastMigration() string {
+	collection := database.GetCollection("history")
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	opt := options.FindOneOptions{}
+	opt.SetSort(bson.D{{"running_t" , -1 }})
+	var hist model.History
+	err := collection.FindOne(ctx, bson.D{} , &opt).Decode(&hist)
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			return "Migração ainda não realizada"
+		}
+	}
+	return hist.RunningT.String()
+}
+
+
+func GetInfo() utils.Info {
+	info := utils.Info{
+		Name:             "Food API",
+		Author:           "Thyago Freitas da Silva",
+		LastExecutedTime: LastMigration(),
+		Connection:       database.Ping(),
+	}
+	return info
 }
 

@@ -2,8 +2,8 @@ package api
 
 import (
 	"encoding/json"
-	"github.com/thyagofr/coodesh/desafio/http/service"
-	"github.com/thyagofr/coodesh/desafio/http/utils"
+	"github.com/thyagofr/coodesh/desafio/service"
+	"github.com/thyagofr/coodesh/desafio/utils"
 	"net/http"
 	"time"
 )
@@ -17,7 +17,7 @@ func init() {
 // Home - Home
 func Home(w http.ResponseWriter, r *http.Request) {
 	utils.SuccessResponse(w, http.StatusOK)
-	response := utils.GetInfo()
+	response := service.GetInfo()
 	response.ElapseTime = time.Since(startTime).String()
 	_ = json.NewEncoder(w).Encode(&response)
 }

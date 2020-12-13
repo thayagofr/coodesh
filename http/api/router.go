@@ -2,7 +2,7 @@ package api
 
 import (
 	"github.com/gorilla/mux"
-	"github.com/thyagofr/coodesh/desafio/http/utils"
+	"github.com/thyagofr/coodesh/desafio/utils"
 )
 
 func Routes() *mux.Router {

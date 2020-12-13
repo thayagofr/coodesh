@@ -3,7 +3,6 @@ package utils
 import (
 	"errors"
 	"github.com/gorilla/mux"
-	"github.com/thyagofr/coodesh/desafio/http/database"
 	"net/http"
 	"strconv"
 )
@@ -57,18 +56,6 @@ func GetQueryParams(r *http.Request) (int64, int64) {
 	}
 	return page, size
 
-}
-
-func GetInfo() Info {
-	info := Info{
-		"Food API",
-		"Thyago Freitas da Silva",
-		0,
-		"",
-		"",
-		database.Ping(),
-	}
-	return info
 }
 
 func SuccessResponse(w http.ResponseWriter, status int) http.ResponseWriter {

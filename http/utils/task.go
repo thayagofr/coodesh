@@ -7,11 +7,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/robfig/cron/v3"
-	"github.com/thyagofr/coodesh/desafio/http/database"
-	"github.com/thyagofr/coodesh/desafio/http/model"
+	"github.com/thyagofr/coodesh/desafio/database"
+	"github.com/thyagofr/coodesh/desafio/model"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 )
@@ -20,18 +21,22 @@ import (
 func InitializeCron() {
 	c := cron.New()
 	_, err := c.AddFunc(
-		"@daily 0 18 * * *",
+		"34 11 * * *",
 		LoadData,
 	)
 	if err != nil {
+		fmt.Println(err)
 		log.Fatal("Houve um erro ao agendar tarefa de sincronizacao...")
 	}
 	c.Start()
 }
 
 func GetFileName() string {
-	response, err := http.Get("https://static.openfoodfacts.org/data/delta/index.txt")
+
+	URL := os.Getenv("OPENFOOD_FILES_LIST")
+	response, err := http.Get(URL)
 	if err != nil {
+		log.Println("Nao foi possível obter a lista de arquivos.")
 		log.Fatal(err.Error())
 	}
 	defer response.Body.Close()
@@ -87,10 +92,10 @@ func LoadDataLog() {
 	collection := database.GetCollection("history")
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	_, err := collection.InsertOne(ctx, model.Log{
-		RunningT: time.Now().UTC(),
+	_, err := collection.InsertOne(ctx, model.History{
+		RunningT: time.Now(),
 	})
 	if err != nil {
-		log.Println("Houve um erro ao registrar execucao do CRON")
+		log.Println("Houve um erro ao registrar execução do CRON")
 	}
 }
