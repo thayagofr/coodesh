@@ -76,3 +76,14 @@ respostas com HTTP Status como `NOT FOUND (404)` e `BAD REQUEST(400)`.
 - Editando produto por codigo (BAD REQUEST)
 ![Buscando todos os produtos](https://github.com/thyagofr/coodesh/blob/main/imgs/PUTPRODUCT-BADREQUEST.png?raw=true)
  
+ 
+ #### Testes automatizados End-To-End
+ 
+ Para executar os testes automatizados escritos, assumindo que a linguagem Go foi préviamente instalanda como comentado
+ no inicio do README.md, navegue pelo terminal dentro do repositório do projeto. Dentro do pacote `http` digite no terminal
+ o seguinte comando : `go test -v ./...`. Você verá uma saída similar a essa.
+ 
+ - Resultado dos testes end-to-end automatizados
+ ![Resultado dos testes end-to-end automatizados](https://github.com/thyagofr/coodesh/blob/main/imgs/TESTS.png?raw=true)
+ 
+ 
