@@ -12,6 +12,14 @@
 API REST para consulta de informações do banco de dados open source 'Open Food Facts', feita utilizando Go como 
 linguagem server-side e MongoDB para a persistência de dados.
 
+#### Bibliotecas utilizadas
+
+- Mongo-go-driver `go get go.mongodb.org/mongo-driver`
+- Cron v3 `go get github.com/robfig/cron/v3`
+- Gorilla Mux `go get github.com/gorilla/mux`
+- net/http `Built-in`
+- Godotenv `go get github.com/joho/godotenv`
+
 ### Instruções (Instalação e utilização)
 
 #### Ferramentas necessárias :
