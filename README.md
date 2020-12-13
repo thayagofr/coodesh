@@ -1,16 +1,30 @@
-# Go Challenge 20200923
 
-## Introdução
+<div  align="center">
+    <img  src="https://miro.medium.com/max/700/1*XtU2ByqGUYD4O5TQuS2CxQ.png"  alt="marvel"  width="320"/>
+</div>
 
-Nesse desafio trabalharemos no desenvolvimento de uma REST API para utilizar os dados do projeto Open Food Facts, que é um banco de dados aberto com informação nutricional de diversos produtos alimentícios.
+# Go Challenge 20200923 - Coodesh
+[![made-with-Go](https://img.shields.io/badge/Made%20with-Go-1f425f.svg)](http://golang.org)
 
-O projeto tem como objetivo dar suporte a equipe de nutricionistas da empresa Fitness Foods LC para que eles possam revisar de maneira rápida a informação nutricional dos alimentos que os usuários publicam pela aplicação móvel.
 
-### Obrigatório
+### API REST utilizando Go + MongoDB
+
+API REST para consulta de informações do banco de dados open source 'Open Food Facts', feita utilizando Go como 
+linguagem server-side e MongoDB para a persistência de dados.
+
+### Instruções (Instalação e utilização)
+
+#### Ferramentas necessárias :
+
+| Ferramenta  |  Windows  |   Linux(Ubuntu)  |    Web  |
+| ------------------- | ------------------- | ------------------- |  ------------------- | 
+|  Go |   [Instalação](https://golang.org/doc/install) |  [Instalação](https://golang.org/doc/install) |   X |
+|  Docker |  [Instalação](https://br.openfoodfacts.org/data) | [Instalação](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04-pt)  |  X |
+|  MongoDB Atlas | X|X | [Criação de conta](https://www.mongodb.com/try) | 
+|  Insomnia |  [Instalação](https://insomnia.rest/download/) | [Instalação](https://snapcraft.io/insomnia)  |   X |
+
+
  
-- Trabalhar em um FORK deste repositório em seu usuário;
-- O projeto back-end deverá ser desenvolvido usando em GoLang
-- Documentação para configuração do projeto em ambientes de produção (como instalar, rodar e referências a libs usadas);
  
 
 ## O projeto
