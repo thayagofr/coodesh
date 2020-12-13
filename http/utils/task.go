@@ -7,8 +7,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/robfig/cron/v3"
-	"github.com/thyagofr/coodesh/desafio/database"
 	"github.com/thyagofr/coodesh/desafio/model"
+	"go.mongodb.org/mongo-driver/mongo"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -17,11 +17,14 @@ import (
 	"time"
 )
 
+var client *mongo.Client
+
 // InitializeCron - InitializeCron
-func InitializeCron() {
+func InitializeCron(cli *mongo.Client) {
+	client = cli
 	c := cron.New()
 	_, err := c.AddFunc(
-		"34 11 * * *",
+		"35 18 * * *",
 		LoadData,
 	)
 	if err != nil {
@@ -46,6 +49,7 @@ func GetFileName() string {
 }
 
 func LoadData() {
+	log.Println("Migrando...")
 	name := GetFileName()
 	URL := fmt.Sprintf("https://static.openfoodfacts.org/data/delta/%s", name)
 	response, _ := http.Get(URL)
@@ -76,7 +80,7 @@ func LoadData() {
 }
 
 func InsertProduct(product model.Product) int {
-	collection := database.GetCollection("products")
+	collection := client.Database(os.Getenv("MONGODB_DATABASE")).Collection(GetCollection(PRODUCTS))
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	_, err := collection.InsertOne(ctx, product)
@@ -89,7 +93,7 @@ func InsertProduct(product model.Product) int {
 }
 
 func LoadDataLog() {
-	collection := database.GetCollection("history")
+	collection := client.Database(os.Getenv("MONGODB_DATABASE")).Collection(GetCollection(HISTORY))
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	_, err := collection.InsertOne(ctx, model.History{

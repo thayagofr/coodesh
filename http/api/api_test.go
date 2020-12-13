@@ -2,7 +2,10 @@ package api
 
 import (
 	"encoding/json"
-	"github.com/thyagofr/coodesh/desafio/http/utils"
+	"github.com/joho/godotenv"
+	"github.com/thyagofr/coodesh/desafio/database"
+	"github.com/thyagofr/coodesh/desafio/utils"
+	"go.mongodb.org/mongo-driver/mongo"
 	"log"
 	"net/http"
 	"net/http/httptest"
@@ -10,8 +13,18 @@ import (
 	"testing"
 )
 
+var mongoClient *mongo.Client
+
+func init() {
+	err := godotenv.Load("../.env")
+	if err != nil {
+		log.Fatal("Arquivo .env nao encontrado")
+	}
+	mongoClient = database.InitDatabase()
+}
+
 func TestRemoveProductNotFound(t *testing.T) {
-	ts := httptest.NewServer(Routes())
+	ts := httptest.NewServer(Routes(mongoClient))
 	defer ts.Close()
 	client := ts.Client()
 	request, err := http.NewRequest("DELETE", ts.URL + "/api/v1/products/1", nil)
@@ -28,10 +41,10 @@ func TestRemoveProductNotFound(t *testing.T) {
 }
 
 func TestRemoveProductAccept(t *testing.T) {
-	ts := httptest.NewServer(Routes())
+	ts := httptest.NewServer(Routes(mongoClient))
 	defer ts.Close()
 	client := ts.Client()
-	request, err := http.NewRequest("DELETE", ts.URL + "/api/v1/products/0075706151011", nil)
+	request, err := http.NewRequest("DELETE", ts.URL + "/api/v1/products/0681131911962", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -45,10 +58,10 @@ func TestRemoveProductAccept(t *testing.T) {
 }
 
 func TestGetProductOk(t *testing.T) {
-	ts := httptest.NewServer(Routes())
+	ts := httptest.NewServer(Routes(mongoClient))
 	defer ts.Close()
 	client := ts.Client()
-	request, err := http.NewRequest("GET", ts.URL + "/api/v1/products/0075706151011", nil)
+	request, err := http.NewRequest("GET", ts.URL + "/api/v1/products/0681131911962", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -62,7 +75,7 @@ func TestGetProductOk(t *testing.T) {
 }
 
 func TestGetProductNotFound(t *testing.T) {
-	ts := httptest.NewServer(Routes())
+	ts := httptest.NewServer(Routes(mongoClient))
 	defer ts.Close()
 	client := ts.Client()
 	request, err := http.NewRequest("GET", ts.URL + "/api/v1/products/0075011", nil)
@@ -79,7 +92,7 @@ func TestGetProductNotFound(t *testing.T) {
 }
 
 func TestUpdateProductNotFound(t *testing.T) {
-	ts := httptest.NewServer(Routes())
+	ts := httptest.NewServer(Routes(mongoClient))
 	defer ts.Close()
 	client := ts.Client()
 
@@ -92,16 +105,16 @@ func TestUpdateProductNotFound(t *testing.T) {
 		log.Fatal(err)
 	}
 	if response.StatusCode != http.StatusNotFound {
-		t.Errorf("WANT : %d, GOT : %d", http.StatusAccepted, response.StatusCode )
+		t.Errorf("WANT : %d, GOT : %d", http.StatusNotFound, response.StatusCode )
 	}
 }
 
 func TestUpdateProductAccept(t *testing.T) {
-	ts := httptest.NewServer(Routes())
+	ts := httptest.NewServer(Routes(mongoClient))
 	defer ts.Close()
 	client := ts.Client()
 
-	request, err := http.NewRequest("PUT", ts.URL + "/api/v1/products/0075706151011", strings.NewReader(JsonValid()))
+	request, err := http.NewRequest("PUT", ts.URL + "/api/v1/products/0681131911962", strings.NewReader(JsonValid()))
 	if err != nil {
 		log.Fatal(err)
 	}

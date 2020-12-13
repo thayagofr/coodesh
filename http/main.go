@@ -17,9 +17,9 @@ func init() {
 }
 
 func main() {
-	server := api.Routes()
-	database.InitDatabase()
-	utils.InitializeCron()
+	client := database.InitDatabase()
+	server := api.Routes(client)
+	utils.InitializeCron(client)
 	log.Println("Server running on port 8080")
 	log.Fatal(http.ListenAndServe(":8080", server))
 }

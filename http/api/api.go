@@ -8,22 +8,41 @@ import (
 	"time"
 )
 
+type Info struct {
+	Name             string
+	Author           string
+	MemoryUsage      int
+	ElapseTime       string
+	LastExecutedTime string
+	Connection       string
+}
+
 var startTime time.Time
 
 func init() {
 	startTime = time.Now().UTC()
 }
 
+type Application struct {
+	PService *service.PService
+	HService *service.HService
+}
+
 // Home - Home
-func Home(w http.ResponseWriter, r *http.Request) {
+func (app *Application) Home(w http.ResponseWriter, r *http.Request) {
 	utils.SuccessResponse(w, http.StatusOK)
-	response := service.GetInfo()
-	response.ElapseTime = time.Since(startTime).String()
+	response := Info{
+		Name: "API FoodFacts V1",
+		Author: "Thyago Freitas da Silva",
+		ElapseTime: time.Since(startTime).String(),
+		LastExecutedTime: app.HService.LastMigration(),
+		Connection: app.HService.Ping(),
+	}
 	_ = json.NewEncoder(w).Encode(&response)
 }
 
 // UpdateProduct - Handler to update a product
-func UpdateProduct(w http.ResponseWriter, r *http.Request) {
+func (app *Application)  UpdateProduct(w http.ResponseWriter, r *http.Request) {
 
 	code, err := utils.GetCode(r, "code")
 	if err != nil {
@@ -35,7 +54,7 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 		utils.HandlerError(w, r, http.StatusBadRequest, err.Error())
 		return
 	}
-	err = service.UpdateProduct(code, prod)
+	err = app.PService.UpdateProduct(code, prod)
 	if err != nil {
 		utils.HandlerError(w, r, http.StatusNotFound, err.Error())
 		return
@@ -44,13 +63,13 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 }
 
 // RemoveProduct - Handler to "remove" a product
-func RemoveProduct(w http.ResponseWriter, r *http.Request) {
+func (app *Application)  RemoveProduct(w http.ResponseWriter, r *http.Request) {
 	code, err := utils.GetCode(r, "code")
 	if err != nil {
 		utils.HandlerError(w, r, http.StatusBadRequest, err.Error())
 		return
 	}
-	err = service.RemoveProduct(code)
+	err = app.PService.RemoveProduct(code)
 	if err != nil {
 		utils.HandlerError(w, r, http.StatusNotFound, err.Error())
 		return
@@ -59,13 +78,13 @@ func RemoveProduct(w http.ResponseWriter, r *http.Request) {
 }
 
 // GetProduct - Handler to find a product
-func GetProduct(w http.ResponseWriter, r *http.Request) {
+func (app *Application)  GetProduct(w http.ResponseWriter, r *http.Request) {
 	code, err := utils.GetCode(r, "code")
 	if err != nil {
 		utils.HandlerError(w, r, http.StatusBadRequest, err.Error())
 		return
 	}
-	response, err := service.GetProduct(code)
+	response, err := app.PService.GetProduct(code)
 	if err != nil {
 		utils.HandlerError(w, r, http.StatusNotFound, err.Error())
 		return
@@ -75,10 +94,10 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 }
 
 // GetProducts - Handler to return all products
-func GetProducts(w http.ResponseWriter, r *http.Request) {
+func (app *Application)  GetProducts(w http.ResponseWriter, r *http.Request) {
 
 	page, size := utils.GetQueryParams(r)
-	response, err := service.GetProducts(page, size)
+	response, err := app.PService.GetProducts(page, size)
 	if err != nil {
 		utils.HandlerError(w, r, http.StatusNotFound, err.Error())
 		return

@@ -17,15 +17,6 @@ type UpdateProductRequest struct {
 	MainCategory    string `json:"main_category"`
 }
 
-type Info struct {
-	Name             string
-	Author           string
-	MemoryUsage      int
-	ElapseTime       string
-	LastExecutedTime string
-	Connection       string
-}
-
 // GetCode - Funcao para pegar o parametro da URI
 func GetCode(r *http.Request, param string) (string, error) {
 

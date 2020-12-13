@@ -8,14 +8,17 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"time"
 
-	"github.com/thyagofr/coodesh/desafio/database"
 	"github.com/thyagofr/coodesh/desafio/model"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
+type PService struct {
+	Client *mongo.Client
+}
+
 // GetProducts - Get all products
-func GetProducts(page, size int64) ([]model.Product, error) {
-	collection := database.GetCollection(utils.GetCollection(utils.PRODUCTS))
+func (p *PService) GetProducts(page, size int64) ([]model.Product, error) {
+	collection := p.Client.Database("banco").Collection(utils.GetCollection(utils.PRODUCTS))
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	opt := options.FindOptions{}
@@ -38,8 +41,8 @@ func GetProducts(page, size int64) ([]model.Product, error) {
 }
 
 // GetProduct - Find a product by code
-func GetProduct(code string) (*model.Product, error) {
-	collection := database.GetCollection(utils.GetCollection(utils.PRODUCTS))
+func (p *PService) GetProduct(code string) (*model.Product, error) {
+	collection := p.Client.Database("banco").Collection(utils.GetCollection(utils.PRODUCTS))
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	product := model.Product{}
@@ -48,8 +51,8 @@ func GetProduct(code string) (*model.Product, error) {
 }
 
 // UpdateProduct - Update data of a product by code
-func UpdateProduct(code string, request utils.UpdateProductRequest) error {
-	collection := database.GetCollection(utils.GetCollection(utils.PRODUCTS))
+func (p *PService) UpdateProduct(code string, request utils.UpdateProductRequest) error {
+	collection := p.Client.Database("banco").Collection(utils.GetCollection(utils.PRODUCTS))
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	update := bson.D{{"$set", bson.D{
@@ -63,7 +66,7 @@ func UpdateProduct(code string, request utils.UpdateProductRequest) error {
 	},
 	},
 	}
-	result , err := collection.UpdateOne(ctx, bson.M{"code": code}, update)
+	result, err := collection.UpdateOne(ctx, bson.M{"code": code}, update)
 	if err != nil {
 		return nil
 	}
@@ -74,47 +77,30 @@ func UpdateProduct(code string, request utils.UpdateProductRequest) error {
 }
 
 // RemoveProduct - Remove a product by code
-func RemoveProduct(code string) error {
-	collection := database.GetCollection(utils.GetCollection(utils.PRODUCTS))
+func (p *PService) RemoveProduct(code string) error {
+	collection := p.Client.Database("banco").Collection(utils.GetCollection(utils.PRODUCTS))
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	update := bson.D{{"$set" , bson.D{
+	update := bson.D{{"$set", bson.D{
 		{"status", utils.GetStatus(utils.TRASH)},
 	}}}
-	res, err := collection.UpdateOne(ctx, bson.M{"code": code} , update)
+	res, err := collection.UpdateOne(ctx, bson.M{"code": code}, update)
 	if err != nil {
 		return err
 	}
 	if res.MatchedCount == 0 {
-		return errors.New("Product not found")
+		return errors.New("Product not found,")
 	}
 	return nil
+
 }
-
-func LastMigration() string {
-	collection := database.GetCollection("history")
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-	opt := options.FindOneOptions{}
-	opt.SetSort(bson.D{{"running_t" , -1 }})
-	var hist model.History
-	err := collection.FindOne(ctx, bson.D{} , &opt).Decode(&hist)
-	if err != nil {
-		if err == mongo.ErrNoDocuments {
-			return "Migração ainda não realizada"
-		}
-	}
-	return hist.RunningT.String()
-}
-
-
-func GetInfo() utils.Info {
-	info := utils.Info{
-		Name:             "Food API",
-		Author:           "Thyago Freitas da Silva",
-		LastExecutedTime: LastMigration(),
-		Connection:       database.Ping(),
-	}
-	return info
-}
-
+//
+//func GetInfo() utils.Info {
+//	info := utils.Info{
+//		Name:             "Food API",
+//		Author:           "Thyago Freitas da Silva",
+//		LastExecutedTime: LastMigration(),
+//		Connection:       database.Ping(),
+//	}
+//	return info
+//}

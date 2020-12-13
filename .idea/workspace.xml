@@ -20,12 +20,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7224ee22-d644-4ff9-b28d-007fd9c8aef0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/http/service/historyservice.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/api/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/http/api/api.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/api/api_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/http/api/api_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/api/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/http/api/router.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/database/database.go" beforeDir="false" afterPath="$PROJECT_DIR$/http/database/database.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/http/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/http/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/http/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/service/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/http/service/productservice.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/utils/task.go" beforeDir="false" afterPath="$PROJECT_DIR$/http/utils/task.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http/utils/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/http/utils/utils.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
   </component>
   <component name="GOROOT" path="C:\Go" />
   <component name="Git.Settings">
@@ -44,6 +62,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
@@ -52,7 +71,21 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\thyag\OneDrive\Área de Trabalho\GITHUB\coodesh\http\service" />
+      <recent name="C:\Users\thyag\OneDrive\Área de Trabalho\GITHUB\coodesh\http\service\product" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Go Build.go build main.go (1)">
+    <configuration name="go build main.go (1)" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="coodesh" />
+      <working_directory value="$PROJECT_DIR$/http" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/http/main.go" />
+      <directory value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
     <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="coodesh" />
       <working_directory value="$PROJECT_DIR$/http" />
@@ -64,6 +97,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build main.go (1)" />
         <item itemvalue="Go Build.go build main.go" />
       </list>
     </recent_temporary>
@@ -82,6 +116,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -90,21 +125,21 @@
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
-    <state width="1877" height="155" key="GridCell.Tab.0.bottom" timestamp="1607870250941">
+    <state width="1877" height="349" key="GridCell.Tab.0.bottom" timestamp="1607895268259">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="155" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1607870250941" />
-    <state width="1877" height="155" key="GridCell.Tab.0.center" timestamp="1607870250941">
+    <state width="1877" height="349" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1607895268259" />
+    <state width="1877" height="349" key="GridCell.Tab.0.center" timestamp="1607895268259">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="155" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1607870250941" />
-    <state width="1877" height="155" key="GridCell.Tab.0.left" timestamp="1607870250941">
+    <state width="1877" height="349" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1607895268259" />
+    <state width="1877" height="349" key="GridCell.Tab.0.left" timestamp="1607895268259">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="155" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1607870250941" />
-    <state width="1877" height="155" key="GridCell.Tab.0.right" timestamp="1607870250941">
+    <state width="1877" height="349" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1607895268259" />
+    <state width="1877" height="349" key="GridCell.Tab.0.right" timestamp="1607895268259">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="155" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1607870250941" />
+    <state width="1877" height="349" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1607895268259" />
   </component>
 </project>
