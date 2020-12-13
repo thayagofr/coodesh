@@ -49,7 +49,24 @@ desejada e `page` para especificar à "página" contendo os produtos.
 Logo abaixo segue imagens de alguns testes utilizando o REST Client Insomnia, incluindo testes que provocam
 respostas com HTTP Status como `NOT FOUND (404)` e `BAD REQUEST(400)`.
 
-![alt text](https://github.com/thyagofr/coodesh/blob/main/imgs/GETALL.png?raw=true)
+- Buscando produtos
+![Buscando todos os produtos](https://github.com/thyagofr/coodesh/blob/main/imgs/GETALL.png?raw=true)
+- Buscando produtos (Paginação com size específico)
+![Buscando todos os produtos](https://github.com/thyagofr/coodesh/blob/main/imgs/GETALL-PAGINATE.png?raw=true)
+- Buscando produto por código (OK)
+![Buscando todos os produtos](https://github.com/thyagofr/coodesh/blob/main/imgs/GETPRODUCT-OK.png?raw=true)
+- Buscando produto por código (NOT FOUND)
+![Buscando todos os produtos](https://github.com/thyagofr/coodesh/blob/main/imgs/GETPRODUCT-NOTFOUND.png?raw=true)
+- Removendo produto por codigo (OK)
+![Buscando todos os produtos](https://github.com/thyagofr/coodesh/blob/main/imgs/DELETEPRODUCT-OK.png?raw=true)
+- Removendo produto por codigo (NOT FOUND)
+![Buscando todos os produtos](https://github.com/thyagofr/coodesh/blob/main/imgs/DELETEPRODUCT-NOTFOUND.png?raw=true)
+- Editando produto por código (NOT FOUND)
+![Buscando todos os produtos](https://github.com/thyagofr/coodesh/blob/main/imgs/PUTPRODUCT-NOTFOUND.png?raw=true)
+- Editando produto por codigo (OK)
+![Buscando todos os produtos](https://github.com/thyagofr/coodesh/blob/main/imgs/PUTPRODUCT-OK.png?raw=true)
+- Editando produto por codigo (BAD REQUEST)
+![Buscando todos os produtos](https://github.com/thyagofr/coodesh/blob/main/imgs/PUTPRODUCT-BADREQUEST.png?raw=true)
  
 
 ## O projeto

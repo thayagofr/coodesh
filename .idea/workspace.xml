@@ -20,16 +20,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7224ee22-d644-4ff9-b28d-007fd9c8aef0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/imgs/DELETEPRODUCT-NOTFOUND.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/imgs/DELETEPRODUCT-OK.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/imgs/GETALL-PAGINATE.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/imgs/GETALL.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/imgs/GETPRODUCT-NOTFOUND.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/imgs/GETPRODUCT-OK.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/imgs/PUTPRODUCT-BADREQUEST.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/imgs/PUTPRODUCT-NOTFOUND.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/imgs/PUTPRODUCT-OK.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
