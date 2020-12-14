@@ -3,6 +3,7 @@ package utils
 import (
 	"errors"
 	"github.com/gorilla/mux"
+	"github.com/thyagofr/coodesh/desafio/model"
 	"net/http"
 	"strconv"
 )
@@ -15,6 +16,14 @@ type UpdateProductRequest struct {
 	NutriscoreScore int    `json:"nutriscore_score"`
 	NutriscoreGrade string `json:"nutriscore_grade"`
 	MainCategory    string `json:"main_category"`
+}
+
+type PaginateResponse struct {
+	TotalElements int64
+	TotalPages    int64
+	ActualPage    int64
+	ActualSize    int64
+	Content          []model.Product
 }
 
 // GetCode - Funcao para pegar o parametro da URI

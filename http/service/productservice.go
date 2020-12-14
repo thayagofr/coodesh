@@ -17,7 +17,7 @@ type PService struct {
 }
 
 // GetProducts - Get all products
-func (p *PService) GetProducts(page, size int64) ([]model.Product, error) {
+func (p *PService) GetProducts(page, size int64) (*utils.PaginateResponse, error) {
 	collection := p.Client.Database("banco").Collection(utils.GetCollection(utils.PRODUCTS))
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
@@ -37,7 +37,15 @@ func (p *PService) GetProducts(page, size int64) ([]model.Product, error) {
 	if err != nil {
 		return nil, err
 	}
-	return products, nil
+	number, _ := collection.CountDocuments(ctx, bson.D{})
+	response := utils.PaginateResponse{
+		ActualPage:    page,
+		ActualSize:    size,
+		Content:       products,
+		TotalElements: number,
+		TotalPages:    number / size,
+	}
+	return &response, nil
 }
 
 // GetProduct - Find a product by code
@@ -94,6 +102,7 @@ func (p *PService) RemoveProduct(code string) error {
 	return nil
 
 }
+
 //
 //func GetInfo() utils.Info {
 //	info := utils.Info{
