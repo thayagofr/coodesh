@@ -1,6 +1,35 @@
-openapi: 3.0.1
+swagger: '2.0'
 info:
   title: GoLang Challenge 20200902
   description: CRUD Products
-  version: '0.1'
+  version: '1.0'
+schemes: [http]
+host : coodesh.com
+basePath : /api/v1
+consumes : [application/json]
+produces : [application/json]
+paths:
+  /products:
+    get:
+      tags: [menu]
+      summary : 'Get all products'
+      responses:
+        200:
+          description: 'List of products'
+          schema:
+            $ref: '#definitions/Products'
+        400:
+          description: Bad Request
+        404:
+          description:  Product Not Found
+        500:
+          schema:
+            type : string
+          description
+definitions:
+  Products:
+    type: Object
+    properties:
+      bcId :
+        type : string
 

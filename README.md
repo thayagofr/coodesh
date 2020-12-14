@@ -19,6 +19,7 @@ linguagem server-side e MongoDB para a persistência de dados.
 - Gorilla Mux `go get github.com/gorilla/mux`
 - net/http `Built-in`
 - Godotenv `go get github.com/joho/godotenv`
+- Cors `go get github.com/rs/cors`
 
 ### Instruções (Instalação e utilização)
 

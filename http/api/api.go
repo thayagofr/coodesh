@@ -2,16 +2,18 @@ package api
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/thyagofr/coodesh/desafio/service"
 	"github.com/thyagofr/coodesh/desafio/utils"
 	"net/http"
+	"runtime"
 	"time"
 )
 
 type Info struct {
 	Name             string
 	Author           string
-	MemoryUsage      int
+	MemoryUsage      string
 	ElapseTime       string
 	LastExecutedTime string
 	Connection       string
@@ -31,12 +33,15 @@ type Application struct {
 // Home - Home
 func (app *Application) Home(w http.ResponseWriter, r *http.Request) {
 	utils.SuccessResponse(w, http.StatusOK)
+	var m runtime.MemStats
+	runtime.ReadMemStats(&m)
 	response := Info{
-		Name: "API FoodFacts V1",
-		Author: "Thyago Freitas da Silva",
-		ElapseTime: time.Since(startTime).String(),
+		Name:             "API FoodFacts V1",
+		Author:           "Thyago Freitas da Silva",
+		ElapseTime:       time.Since(startTime).String(),
 		LastExecutedTime: app.HService.LastMigration(),
-		Connection: app.HService.Ping(),
+		Connection:       app.HService.Ping(),
+		MemoryUsage:      fmt.Sprintf("%d MB", m.Sys/1024/1024),
 	}
 	_ = json.NewEncoder(w).Encode(&response)
 }

@@ -9,5 +9,6 @@ require (
 	github.com/mongodb/mongo-tools v0.0.0-20201201161921-a68aa4c302a5 // indirect
 	github.com/mongodb/mongo-tools-common v4.0.14+incompatible // indirect
 	github.com/robfig/cron/v3 v3.0.0
+	github.com/rs/cors v1.7.0 // indirect
 	go.mongodb.org/mongo-driver v1.4.4
 )

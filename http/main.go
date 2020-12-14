@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/joho/godotenv"
+	"github.com/rs/cors"
 	"github.com/thyagofr/coodesh/desafio/api"
 	"github.com/thyagofr/coodesh/desafio/database"
 	"github.com/thyagofr/coodesh/desafio/utils"
@@ -18,8 +19,9 @@ func init() {
 
 func main() {
 	client := database.InitDatabase()
-	server := api.Routes(client)
 	utils.InitializeCron(client)
+	routes := api.Routes(client)
+	server := cors.AllowAll().Handler(routes)
 	log.Println("Server running on port 8080")
 	log.Fatal(http.ListenAndServe(":8080", server))
 }
