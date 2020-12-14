@@ -17,6 +17,7 @@ type Info struct {
 	ElapseTime       string
 	LastExecutedTime string
 	Connection       string
+	Version          string
 }
 
 var startTime time.Time
@@ -42,12 +43,13 @@ func (app *Application) Home(w http.ResponseWriter, r *http.Request) {
 		LastExecutedTime: app.HService.LastMigration(),
 		Connection:       app.HService.Ping(),
 		MemoryUsage:      fmt.Sprintf("%d MB", m.Sys/1024/1024),
+		Version: "V1",
 	}
 	_ = json.NewEncoder(w).Encode(&response)
 }
 
 // UpdateProduct - Handler to update a product
-func (app *Application)  UpdateProduct(w http.ResponseWriter, r *http.Request) {
+func (app *Application) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 
 	code, err := utils.GetCode(r, "code")
 	if err != nil {
@@ -68,7 +70,7 @@ func (app *Application)  UpdateProduct(w http.ResponseWriter, r *http.Request) {
 }
 
 // RemoveProduct - Handler to "remove" a product
-func (app *Application)  RemoveProduct(w http.ResponseWriter, r *http.Request) {
+func (app *Application) RemoveProduct(w http.ResponseWriter, r *http.Request) {
 	code, err := utils.GetCode(r, "code")
 	if err != nil {
 		utils.HandlerError(w, r, http.StatusBadRequest, err.Error())
@@ -83,7 +85,7 @@ func (app *Application)  RemoveProduct(w http.ResponseWriter, r *http.Request) {
 }
 
 // GetProduct - Handler to find a product
-func (app *Application)  GetProduct(w http.ResponseWriter, r *http.Request) {
+func (app *Application) GetProduct(w http.ResponseWriter, r *http.Request) {
 	code, err := utils.GetCode(r, "code")
 	if err != nil {
 		utils.HandlerError(w, r, http.StatusBadRequest, err.Error())
@@ -99,7 +101,7 @@ func (app *Application)  GetProduct(w http.ResponseWriter, r *http.Request) {
 }
 
 // GetProducts - Handler to return all products
-func (app *Application)  GetProducts(w http.ResponseWriter, r *http.Request) {
+func (app *Application) GetProducts(w http.ResponseWriter, r *http.Request) {
 
 	page, size := utils.GetQueryParams(r)
 	response, err := app.PService.GetProducts(page, size)
