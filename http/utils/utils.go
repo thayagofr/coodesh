@@ -26,6 +26,13 @@ type PaginateResponse struct {
 	Content          []model.Product
 }
 
+func Validate(req UpdateProductRequest) error {
+	if req.ProductName == "" {
+		return errors.New("Bad Request : ProductName not specified")
+	}
+	return nil
+}
+
 // GetCode - Funcao para pegar o parametro da URI
 func GetCode(r *http.Request, param string) (string, error) {
 

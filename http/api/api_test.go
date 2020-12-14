@@ -127,6 +127,24 @@ func TestUpdateProductAccept(t *testing.T) {
 	}
 }
 
+func TestUpdateProductNotAccept(t *testing.T) {
+	ts := httptest.NewServer(Routes(mongoClient))
+	defer ts.Close()
+	client := ts.Client()
+
+	request, err := http.NewRequest("PUT", ts.URL + "/api/v1/products/0681131911962", strings.NewReader(JsonInvalid()))
+	if err != nil {
+		log.Fatal(err)
+	}
+	response, err := client.Do(request)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if response.StatusCode != http.StatusBadRequest{
+		t.Errorf("WANT : %d, GOT : %d", http.StatusBadRequest, response.StatusCode )
+	}
+}
+
 func JsonValid() string {
 	body := utils.UpdateProductRequest{
 		MainCategory: "Teste",
@@ -136,6 +154,18 @@ func JsonValid() string {
 		Brands: "Nestle",
 		Quantity: "10",
 		ProductName: "Produto caro",
+	}
+	bodyJSON , _ := json.Marshal(&body)
+	return string(bodyJSON)
+}
+
+func JsonInvalid() string {
+	body := utils.UpdateProductRequest{
+		MainCategory: "Teste",
+		NutriscoreGrade: "10",
+		NutriscoreScore: 10,
+		IngredientsText: "Lalalalalal",
+		Brands: "Nestle",
 	}
 	bodyJSON , _ := json.Marshal(&body)
 	return string(bodyJSON)

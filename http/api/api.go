@@ -3,6 +3,7 @@ package api
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/go-playground/validator/v10"
 	"github.com/thyagofr/coodesh/desafio/service"
 	"github.com/thyagofr/coodesh/desafio/utils"
 	"net/http"
@@ -21,6 +22,7 @@ type Info struct {
 }
 
 var startTime time.Time
+var valid validator.Validate
 
 func init() {
 	startTime = time.Now().UTC()
@@ -58,6 +60,11 @@ func (app *Application) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	var prod utils.UpdateProductRequest
 	decoder := json.NewDecoder(r.Body)
 	if err := decoder.Decode(&prod); err != nil {
+		utils.HandlerError(w, r, http.StatusBadRequest, err.Error())
+		return
+	}
+	err = utils.Validate(prod)
+	if err != nil {
 		utils.HandlerError(w, r, http.StatusBadRequest, err.Error())
 		return
 	}
